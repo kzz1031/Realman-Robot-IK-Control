@@ -1,0 +1,59 @@
+# The robot description defines the generalized coordinates and how to map those
+# to the underlying URDF dofs.
+
+api_version: 1.0
+
+# Defines the generalized coordinates. Each generalized coordinate is assumed
+# to have an entry in the URDF.
+# Lula will only use these joints to control the robot position.
+cspace:
+    - l_joint1
+    - r_joint1
+    - l_joint2
+    - r_joint2
+    - l_joint3
+    - r_joint3
+    - l_joint4
+    - r_joint4
+    - l_joint5
+    - r_joint5
+    - l_joint6
+    - r_joint6
+    - l_joint7
+    - r_joint7
+default_q: [
+    -0.0,0.0,-0.0005,0.0004,1e-04,-1e-04,-0.0007,0.0007,1e-04,-1e-04,-0.0008,0.0008,-0.0,0.0
+]
+
+acceleration_limits: [
+   10,10,10,10,10,10,10,10,10,10,10,10,10,10
+]
+
+jerk_limits: [
+   10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000,10000
+]
+
+# Most dimensions of the cspace have a direct corresponding element
+# in the URDF. This list of rules defines how unspecified coordinates
+# should be extracted or how values in the URDF should be overwritten.
+
+cspace_to_urdf_rules:
+    - {name: joint_left_wheel, rule: fixed, value: -0.2669}
+    - {name: joint_right_wheel, rule: fixed, value: -0.8705}
+    - {name: joint_swivel_wheel_1_1, rule: fixed, value: -0.0218}
+    - {name: joint_swivel_wheel_2_1, rule: fixed, value: 0.0361}
+    - {name: joint_swivel_wheel_3_1, rule: fixed, value: -0.023}
+    - {name: joint_swivel_wheel_4_1, rule: fixed, value: -0.0055}
+    - {name: platform_joint, rule: fixed, value: 0.5}
+    - {name: joint_swivel_wheel_1_2, rule: fixed, value: -0.2824}
+    - {name: joint_swivel_wheel_2_2, rule: fixed, value: 0.027}
+    - {name: joint_swivel_wheel_3_2, rule: fixed, value: -0.6707}
+    - {name: joint_swivel_wheel_4_2, rule: fixed, value: 0.2704}
+    - {name: head_joint1, rule: fixed, value: -0.0}
+    - {name: head_joint2, rule: fixed, value: 0.0006}
+
+# Lula uses collision spheres to define the robot geometry in order to avoid
+# collisions with external obstacles.  If no spheres are specified, Lula will
+# not be able to avoid obstacles.
+
+collision_spheres:
