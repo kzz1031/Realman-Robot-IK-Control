@@ -60,52 +60,29 @@ right_target_changed = True
 current_left_target_pos, current_left_target_ori = realman._left_target.get_world_pose()
 current_right_target_pos, current_right_target_ori = realman._right_target.get_world_pose()
 
-realman.dense_step_action()
+while True:
+    base_env.step()
+    if left_target_changed or right_target_changed:
+        print(f"Left target changed: {left_target_changed}, Right target changed: {right_target_changed}")
+        realman.dense_step_action()
 
-# realman._left_target.set_world_pose(position=np.array([0.356, -0.55, 0.73]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-# realman._right_target.set_world_pose(position=np.array([-0.181, -0.573, 0.73]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-
-# realman.dense_step_action()
-
-# realman._left_target.set_world_pose(position=np.array([0.306, -0.55, 0.73]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-# realman._right_target.set_world_pose(position=np.array([-0.121, -0.573, 0.73]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-
-# realman.dense_step_action()
-
-# realman._left_target.set_world_pose(position=np.array([0.306, -0.55, 1.0]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-# realman._right_target.set_world_pose(position=np.array([-0.121, -0.573, 1.0]), orientation=np.array([1.0, 0.0, 0.0, 0.0]))
-
-# realman.dense_step_action()
-
-# cprint("Stop recording...", "yellow")
-# base_env.stop_record()
-
-# while simulation_app.is_running():
-#     base_env.step()
-
-# while True:
-#     base_env.step()
-#     if left_target_changed or right_target_changed:
-#         print(f"Left target changed: {left_target_changed}, Right target changed: {right_target_changed}")
-#         realman.dense_step_action()
-
-#         last_left_target_pos = current_left_target_pos
-#         last_left_target_ori = current_left_target_ori
-#         last_right_target_pos = current_right_target_pos
-#         last_right_target_ori = current_right_target_ori
+        last_left_target_pos = current_left_target_pos
+        last_left_target_ori = current_left_target_ori
+        last_right_target_pos = current_right_target_pos
+        last_right_target_ori = current_right_target_ori
         
-#     current_left_target_pos, current_left_target_ori = realman._left_target.get_world_pose()
-#     current_right_target_pos, current_right_target_ori = realman._right_target.get_world_pose()
+    current_left_target_pos, current_left_target_ori = realman._left_target.get_world_pose()
+    current_right_target_pos, current_right_target_ori = realman._right_target.get_world_pose()
 
-#     left_target_changed = (
-#         not np.allclose(current_left_target_pos, last_left_target_pos) or
-#         not np.allclose(current_left_target_ori, last_left_target_ori)
-#     )
+    left_target_changed = (
+        not np.allclose(current_left_target_pos, last_left_target_pos) or
+        not np.allclose(current_left_target_ori, last_left_target_ori)
+    )
 
-#     right_target_changed = (
-#         not np.allclose(current_right_target_pos, last_right_target_pos) or
-#         not np.allclose(current_right_target_ori, last_right_target_ori)
-#     )
+    right_target_changed = (
+        not np.allclose(current_right_target_pos, last_right_target_pos) or
+        not np.allclose(current_right_target_ori, last_right_target_ori)
+    )
 
 
-# simulation_app.close()
+simulation_app.close()
